@@ -3,7 +3,7 @@ import './App.css';
 import Post from './Post';
 
 function App() {
-  const[post, setPosts] =useState ([
+  const[post, setPost] =useState ([
     {
       username:"Hy",
       caption:"minions" ,
@@ -30,7 +30,7 @@ function App() {
     </div>
     <h1>hi</h1>
     {
-      posts.map(post =>(
+      post.map(post =>(
         <Post username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
       ))
     }
