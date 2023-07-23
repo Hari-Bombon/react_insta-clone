@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Post from './Post';
 import { auth, db } from './firebase';
+import ImageUpload from './ImageUpload';
 
 function getModalStyle() {
   const top = 50;
@@ -97,6 +98,7 @@ const signIn = (event) => {
 
   return (
     <div className="App">
+  <ImageUpload />
       <Modal
         open={openSignIn}
         onClose={() => setOpenSignIn(false)}
