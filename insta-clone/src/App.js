@@ -61,7 +61,7 @@ function App() {
           // useEffect ->runs a piece of code based on specific condition
   useEffect (() => {
     //this is where the code runs
-db.collection('posts').onSnapshot (snapshot=>{
+db.collection('posts').orderBy('timestamp' , 'desc')onSnapshot (snapshot=>{
 // every time a new post is added , this code fires
 setPosts(snapshot.docs.map(doc => ({
   id: doc.id,
@@ -96,7 +96,6 @@ const signIn = (event) => {
   }
   return (
     <div className="App">
-      <ImageUpload />
       <Modal
         open={openSignIn}
         onClose={() => setOpenSignIn(false)}
@@ -118,6 +117,16 @@ const signIn = (event) => {
                 <Button onClick={() => setOpen(true)}>SignUp</Button>
               </div>
             )}
+            </div>
+            <div className='app_posts'>
+            {
+      post.map (({id, post}) =>(
+        <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
+      ))
+    }
+            </div>
+
+
             <Input
             type="text"
             placeholder="username"
@@ -135,11 +144,7 @@ const signIn = (event) => {
         </div>
       </Modal>
       <Button type="submit" onClick={() => setOpen(true)}> Sign Up</Button>
-    {
-      post.map (({id, post}) =>(
-        <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
-      ))
-    }
+    
         <Post username="Hy" caption="minions" imageUrl="https://tse1.mm.bing.net/th?id=OIP.3yqBVngk9xy4ZcEh5Zq3RQHaGW&pid=Api&P=0&h=180"/>
     <Post username="remo" caption="siavas" imageUrl="https://tse1.mm.bing.net/th?id=OIP.NfcnKBmZD3OrLNSYdSKbUgHaJ4&pid=Api&P=0&h=180"/>
     <Post username="cheez" caption="kakasuki" imageUrl="https://tse3.mm.bing.net/th?id=OIP.LlDtcenlPDhLGzkCyE03xAHaIo&pid=Api&P=0&h=180"/>
@@ -147,7 +152,13 @@ const signIn = (event) => {
     {/*posts */}
      {/*posts */}
 
+     {user?.displayName ? (
+      <ImageUpload usename={user.displayName} />
+     ): (
+      <h3>Sorry you need to login to upload</h3>
 
+     )
+     }
     </div>
   );
 
